@@ -23,6 +23,7 @@ library
 
   exposed-modules:
     HaskellStarter.Github
+    HaskellStarter.Util
 
   build-depends:
     base   >= 4 && < 5,
