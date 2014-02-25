@@ -1,0 +1,50 @@
+-- documentation, see http://haskell.org/cabal/users-guide/
+
+name:                haskell-starter
+version:             0.1
+synopsis:            A demo for getting a project started in Haskell.
+-- description:         
+homepage:            https://github.com/joshcough/HaskellStarter
+license:             MIT
+license-file:        LICENSE
+author:              Josh Cough
+maintainer:          joshcough@gmail.com
+-- copyright:           
+category:            Demo
+build-type:          Simple
+cabal-version:       >=1.8
+
+source-repository head
+  type: git
+  location: git@github.com:joshcough/HaskellStarter.git
+
+library
+  hs-source-dirs: src
+
+  exposed-modules:
+    HaskellStarter.Github
+
+  build-depends:
+    base   >= 4 && < 5,
+    github >= 0.7.4
+
+-- executable for the 64 bit L1 Compiler
+executable HaskellStarterMain
+  hs-source-dirs: main
+  main-is: Main.hs
+  build-depends: base < 5, haskell-starter
+
+-- TestFramework HUnit and QuickCheck tests
+test-suite unit-tests-and-properties
+  type:           exitcode-stdio-1.0
+  main-is:        Main.hs
+  hs-source-dirs: . test
+  build-depends:
+    base,
+    HUnit,
+    QuickCheck                 >= 2.4,
+    test-framework             >= 0.6,
+    test-framework-hunit,
+    test-framework-quickcheck2 >= 0.2,
+    test-framework-th          >= 0.2
+

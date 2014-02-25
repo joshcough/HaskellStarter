@@ -1,0 +1,16 @@
+dist/
+.hsenv/
+docs
+wiki
+TAGS
+tags
+wip
+.DS_Store
+.*.swp
+.*.swo
+*.o
+*.hi
+*~
+*#
+.cabal-sandbox/
+cabal.sandbox.config
