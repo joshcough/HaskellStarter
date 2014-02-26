@@ -3,6 +3,8 @@ module HaskellStarter.Github where
 import Control.Monad
 import Data.List
 import Data.Traversable
+-- this Module uses a Github module I found on Hoogle
+-- http://hackage.haskell.org/package/github
 import Github.Data.Definitions
 import Github.Repos.Commits
 import HaskellStarter.Util

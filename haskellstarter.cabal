@@ -3,13 +3,11 @@
 name:                haskell-starter
 version:             0.1
 synopsis:            A demo for getting a project started in Haskell.
--- description:         
 homepage:            https://github.com/joshcough/HaskellStarter
 license:             MIT
 license-file:        LICENSE
 author:              Josh Cough
 maintainer:          joshcough@gmail.com
--- copyright:           
 category:            Demo
 build-type:          Simple
 cabal-version:       >=1.8
@@ -18,6 +16,7 @@ source-repository head
   type: git
   location: git@github.com:joshcough/HaskellStarter.git
 
+-- configuration for building a library
 library
   hs-source-dirs: src
 
@@ -29,13 +28,13 @@ library
     base   >= 4 && < 5,
     github >= 0.7.4
 
--- executable for the 64 bit L1 Compiler
-executable HaskellStarterMain
+-- configuration for an executable 
+executable githubCommitPrinter
   hs-source-dirs: main
   main-is: Main.hs
   build-depends: base < 5, haskell-starter
 
--- TestFramework HUnit and QuickCheck tests
+-- configuration for Unit tests and properties
 test-suite unit-tests-and-properties
   type:           exitcode-stdio-1.0
   main-is:        Main.hs
