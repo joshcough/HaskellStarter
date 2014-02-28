@@ -16,6 +16,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
 
 ## ghci (Haskell Interpreter)
 
+ghci is a simple way to get started playing with Haskell.
+
 Run ghci at the command line by simply typing ghci:
       
     > ghci
@@ -50,34 +52,68 @@ Quit ghci
 
 ## Cabal (Haskell project configuration
 
-While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
+While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/. This section will cover:
   
   * Anatomy of a Cabal file
     * Libraries
     * Dependencies
     * Tests
     * Executables
+  * Building libraries and executables
+  * Running tests
 
-Building, Installing and running tests with Cabal
+### Specifying a Library
+
+    library 
+      hs-source-dirs: src
+
+      exposed-modules:
+        HaskellStarter.Github
+        HaskellStarter.Util
+
+      build-depends:
+        base   >= 4 && < 5,
+        github >= 0.7.4
+
+### Specifying Executables
+
+This example specifies an exectuable called githubCommitPrinter. githubCommitPrinter is a command line program that takes two arguments, a username and a project name, and prints the last 30 commits for that project.
+
+    executable githubCommitPrinter
+      hs-source-dirs: main
+      main-is: Main.hs
+      build-depends: base < 5, haskell-starter
+
+I think this is mostly self explanatory, but I'll do so anyway.
+
+  * Line 1 starts the executable block, and names it. You may have many different executables in one cabal file.
+  * Line 2 specifies what directory the code for the executable lives in. 
+  * Line 3 specifies the Haskell file that contains the main function. (Open question: can the module be named anything?)
+  * Line 4 specifies all of the packages that the executable depends on. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your libraries to executables.
+
+### Building libraries, installing executables and running tests with Cabal
   
-Installing your libraries and executables (TODO: where exactly do they go? show it)
+Installing your libraries and executables 
 
     > cabal install
 
 Running your tests
         
     > cabal install --enable-tests 
-          (TODO: is there a way to run tests without installing? especially all the executables)
+
+  (Open question: is there a way to run tests without installing all of the executables?)
+
 Running executables
 
-    * Remember to add ~/.cabal/bin to your PATH
-    * > HaskellStarter "joshcough" "HaskellStarter"
+    By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
+
+    > HaskellStarter "joshcough" "HaskellStarter"
 
 ## Hoogle (http://www.haskell.org/hoogle/)
 
-Finding functions, libraries, documentation
+Hoogle is the go to place for finding functions, libraries, documentation.
 
 ## Travis
 
-Building your project automatically after a git push
+Building your project automatically after a git push.
 
