@@ -9,6 +9,9 @@ import Github.Data.Definitions
 import Github.Repos.Commits
 import HaskellStarter.Util
 
+{-|
+   Get the actual commit message from a Commit.
+ -}
 getMessage :: Commit -> String
 getMessage = gitCommitMessage . commitGitCommit
 

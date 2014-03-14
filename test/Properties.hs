@@ -9,4 +9,5 @@ import Test.QuickCheck
 
 prop_list_reverse_reverse :: [Int] -> Bool
 prop_list_reverse_reverse list = list == reverse (reverse list)
+
 tests = $testGroupGenerator
