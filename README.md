@@ -15,6 +15,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
     * doctests (Documentation tests)
     * [Running Tests](#running-tests)
   * [Executables](#specifying-executables)
+    * [Installing and Running Executables](#installing-and-running-executables)
 * Hackage - Publishing your library
 * Building your project on git each commit with Travis
 
@@ -146,21 +147,32 @@ You can also pass the `--enable-tests` flag to `cabal install`, which will run a
 
 ### Specifying Executables
 
-A library is a collection of code that you can depend on, but cannot actually execute that. Fortunately, you can build executables with Cabal very easily. This example specifies an exectuable called githubCommitPrinter. githubCommitPrinter is a command line program that takes two arguments, a username and a project name, and prints the last 30 commits for that project.
+A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
+
+    module Main where
+
+    import HaskellStarter.Github
+    import System.Environment
+
+    main = do
+      args <- getArgs
+      printCommitsFor (args !! 0) (args !! 1)
+
+This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
+
+Configuring an exectuable in Cabal is very simple:
 
     executable githubCommitPrinter
       hs-source-dirs: main
       main-is: Main.hs
       build-depends: base < 5, haskell-starter
 
-I think this is mostly self explanatory, but I'll do so anyway.
+* `executable githubCommitPrinter` starts the executable block, and names it. You may have many different executables in one cabal file.
+* `hs-source-dirs` is a list of directories to find source files.
+* `main-is` specifies the Haskell file that contains the `main` function. `main` must have type `IO ()`.
+* `build-depends` is the same as it is in the library definition. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your library to executables.
 
-  * Line 1 starts the executable block, and names it. You may have many different executables in one cabal file.
-  * Line 2 specifies what directory the code for the executable lives in. 
-  * Line 3 specifies the Haskell file that contains the main function. (Open question: can the module be named anything?)
-  * Line 4 specifies all of the packages that the executable depends on. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your libraries to executables.
-
-### Installing and Running Executables
+#### Installing and Running Executables
 
 `cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
 
