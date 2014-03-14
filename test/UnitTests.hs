@@ -2,7 +2,6 @@ module UnitTests where
 
 import Test.Framework.Providers.API
 import Test.Framework.Providers.HUnit
-import Test.Framework.Runners.Console
 import Test.HUnit
 
 tests = testGroup "HUnit tests" [
