@@ -8,10 +8,10 @@ This project demonstrates how to set up your own real Haskell project, and helps
 * [Cabal - The Haskell build tool](#cabal)
   * [Libraries](#creating-a-library)
   * [Dependencies](#understanding-dependencies)
-  * Tests
+  * [Tests](#tests)
     * Unit tests and properties
     * doctests (Documentation tests)
-  * Executables
+  * [Executables](#specifying-executables)
 * Hackage - Publishing your library
 * Building your project on git each commit with Travis
 
@@ -102,6 +102,19 @@ A cabal file can only have one library (but you're not required to have one).
       build-depends:
         base >= 4 && < 5, github >= 0.7.4
 
+* `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use on, but you can also say:
+
+    hs-source-dirs: src1 src2 goober/joober
+
+* `exposed-modules` specifies the modules in the libraries public API.
+* `other-modules` specifies modules that aren't publicly exposed, but are still part of the library.
+
+The compiler must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`.
+
+* `build-depends` will be explained in the section [Understanding Dependencies](#understanding-dependencies), but for now, it is enough to know that this library depends on two other libraries: base, and github.
+
+#### Building and Installing your Library
+
 Building your library is easy:
 
     > cabal build
@@ -112,11 +125,21 @@ If you want to build other projects that depend on your library, you can install
 
 ### Understanding Dependencies
 
+TODO
+
 ### Tests  
+
+In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
+
+* HUnit - a library for writing unit tests
+* QuickCheck - a library for writing properties 
+* test-framework - A framework for organizing and running unit tests and properties
+
+
 
 ### Specifying Executables
 
-This example specifies an exectuable called githubCommitPrinter. githubCommitPrinter is a command line program that takes two arguments, a username and a project name, and prints the last 30 commits for that project.
+A library is a collection of code that you can depend on, but cannot actually execute that. Fortunately, you can build executables with Cabal very easily. This example specifies an exectuable called githubCommitPrinter. githubCommitPrinter is a command line program that takes two arguments, a username and a project name, and prints the last 30 commits for that project.
 
     executable githubCommitPrinter
       hs-source-dirs: main
