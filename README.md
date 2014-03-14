@@ -9,6 +9,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Libraries](#creating-a-library)
     * [Configuration](#creating-a-library)
     * [Building and Installing your Library](#building-and-installing-your-library)
+  * [Haddock - Haskell documentation](#haddock)
   * [Dependencies](#understanding-dependencies)
   * [Tests](#tests)
     * Unit tests and properties
@@ -16,7 +17,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
     * [Running Tests](#running-tests)
   * [Executables](#specifying-executables)
     * [Installing and Running Executables](#installing-and-running-executables)
-* Hackage - Publishing your library
+  * Hackage - Publishing your library
 * Building your project on git each commit with Travis
 
 ## Prerequisites
@@ -123,6 +124,10 @@ If you want to build other projects that depend on your library, you can install
 
     > cabal install
 
+### Haddock
+
+TODO
+
 ### Understanding Dependencies
 
 TODO
@@ -178,9 +183,9 @@ Configuring an exectuable in Cabal is very simple:
 
 `cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
 
-    > githubCommitPrinter "joshcough" "HaskellStarter"
+    > githubCommitPrinter joshcough HaskellStarter
 
 ## Travis
 
-Building your project automatically after a git push.
+Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
 
