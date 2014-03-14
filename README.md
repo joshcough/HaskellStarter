@@ -7,6 +7,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
 * [Cabal - The Haskell build tool](#cabal)
   * [Libraries](#creating-a-library)
+    * [Configuration](#creating-a-library)
+    * [Building and Installing your Library](#building-and-installing-your-library)
   * [Dependencies](#understanding-dependencies)
   * [Tests](#tests)
     * Unit tests and properties
@@ -102,15 +104,14 @@ A cabal file can only have one library (but you're not required to have one).
       build-depends:
         base >= 4 && < 5, github >= 0.7.4
 
-* `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use on, but you can also say:
+* `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use one, but you can also say:
 
-    hs-source-dirs: src1 src2 goober/joober
-
-* `exposed-modules` specifies the modules in the libraries public API.
-* `other-modules` specifies modules that aren't publicly exposed, but are still part of the library.
+    `hs-source-dirs: src1 src2 goober/joober`
 
 The compiler must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`.
 
+* `exposed-modules` specifies the modules in the libraries public API.
+* `other-modules` specifies modules that aren't publicly exposed, but are still part of the library.
 * `build-depends` will be explained in the section [Understanding Dependencies](#understanding-dependencies), but for now, it is enough to know that this library depends on two other libraries: base, and github.
 
 #### Building and Installing your Library
