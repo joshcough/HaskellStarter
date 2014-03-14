@@ -149,14 +149,16 @@ You can also pass the `--enable-tests` flag to `cabal install`, which will run a
 
 A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
 
-    module Main where
+```Haskell
+module Main where
 
-    import HaskellStarter.Github
-    import System.Environment
+import HaskellStarter.Github
+import System.Environment
 
-    main = do
-      args <- getArgs
-      printCommitsFor (args !! 0) (args !! 1)
+main = do
+  args <- getArgs
+  printCommitsFor (args !! 0) (args !! 1)
+```
 
 This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
 
