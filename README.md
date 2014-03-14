@@ -18,14 +18,15 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Executables](#specifying-executables)
     * [Installing and Running Executables](#installing-and-running-executables)
   * Hackage - Publishing your library
-* Building your project on git each commit with Travis
+* [Travis - Building your project on git each commit](#travis)
 
 ## Prerequisites
 
-* Install Haskell (http://www.haskell.org/platform/)
-* Basic knowledge of Haskell
+As stated, this project assumes some basic knowledge of Haskell. If you don't have that, I recommend [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/). Also, if you haven't already, go install the [Haskell Platform](http://www.haskell.org/platform/). 
 
 ### ghci
+
+In order to have some basic knowledge of Haskell, it's highly likely that you've played with ghci, but a refresher still helps. 
 
 ghci is a simple way to get started playing with Haskell, and is essential for testing out functions and types during development.
 
@@ -126,7 +127,13 @@ If you want to build other projects that depend on your library, you can install
 
 ### Haddock
 
+Let's add some documentation to the code:
+
 TODO
+
+With the docs in our source code, generating pretty html from them is simple:
+
+    cabal haddock
 
 ### Understanding Dependencies
 
