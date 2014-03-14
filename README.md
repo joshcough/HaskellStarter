@@ -2,12 +2,11 @@
 
 This project demonstrates how to set up your own real Haskell project, and helps you get a feel for the Haskell ecosystem. Currently, teaching Haskell is *not* a goal of this project, but it may in the future. As for now, basic knowledge of Haskell is assumed, and this project is aimed at people who want to build a real program or library in Haskell.
 
-* Prerequisites
+* [Prerequisites](#Prerequisites)
 * ghci - Haskell interpreter
 * Cabal - Setting up and building a Haskell project
 * Hoogle - Finding functions, libraries and documentation
 * Building your project on git each commit with Travis
-* TODO: Hackage?
 
 ## Prerequisites
 
@@ -61,14 +60,19 @@ While ghci is useful for playing with Haskell code, it doesn't enable you to bui
     * Executables
   * Building libraries and executables
   * Running tests
+  * Cabal update
 
 ### Specifying a Library
+
+A cabal file can only have one library (but you're not required to have one).
 
     library 
       hs-source-dirs: src
 
       exposed-modules:
         HaskellStarter.Github
+
+      other-modules:
         HaskellStarter.Util
 
       build-depends:
