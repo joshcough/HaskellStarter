@@ -22,8 +22,8 @@ library
 
   exposed-modules:
     HaskellStarter.Github
+  other-modules:
     HaskellStarter.Util
-
   build-depends:
     base   >= 4 && < 5,
     github >= 0.7.4
@@ -38,7 +38,7 @@ executable githubCommitPrinter
 test-suite unit-tests-and-properties
   type:           exitcode-stdio-1.0
   main-is:        Main.hs
-  hs-source-dirs: . test
+  hs-source-dirs: test
   build-depends:
     base,
     HUnit,
@@ -48,3 +48,9 @@ test-suite unit-tests-and-properties
     test-framework-quickcheck2 >= 0.2,
     test-framework-th          >= 0.2
 
+-- husk.cabal
+test-suite doctest
+    type:             exitcode-stdio-1.0
+    main-is:          DocTest.hs
+    hs-source-dirs:   test
+    build-depends:    base, doctest == 0.9.*, Glob == 0.7.*
