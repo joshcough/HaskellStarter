@@ -13,6 +13,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Tests](#tests)
     * Unit tests and properties
     * doctests (Documentation tests)
+    * [Running Tests](#running-tests)
   * [Executables](#specifying-executables)
 * Hackage - Publishing your library
 * Building your project on git each commit with Travis
@@ -104,15 +105,12 @@ A cabal file can only have one library (but you're not required to have one).
       build-depends:
         base >= 4 && < 5, github >= 0.7.4
 
-* `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use one, but you can also say:
-
-    `hs-source-dirs: src1 src2 goober/joober`
-
-The compiler must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`.
-
+* `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use one, but you can also say: `hs-source-dirs: src1 src2 goober/joober`
 * `exposed-modules` specifies the modules in the libraries public API.
 * `other-modules` specifies modules that aren't publicly exposed, but are still part of the library.
 * `build-depends` will be explained in the section [Understanding Dependencies](#understanding-dependencies), but for now, it is enough to know that this library depends on two other libraries: base, and github.
+
+A quick note about modules: Cabal must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`. I find this good and bad - on one hand it allows you to have Haskell files in your source directory that you don't want to be compiled, on the other, it forces you to list all of your modules.
 
 #### Building and Installing your Library
 
@@ -136,7 +134,15 @@ In Haskell and Cabal there are a _lot_ of different test libraries and framework
 * QuickCheck - a library for writing properties 
 * test-framework - A framework for organizing and running unit tests and properties
 
+#### Running Tests
 
+Running your tests is also easy:
+
+    > cabal test
+
+You can also pass the `--enable-tests` flag to `cabal install`, which will run all of your tests, and only install the library if all of the tests pass:
+        
+    > cabal install --enable-tests 
 
 ### Specifying Executables
 
@@ -154,23 +160,11 @@ I think this is mostly self explanatory, but I'll do so anyway.
   * Line 3 specifies the Haskell file that contains the main function. (Open question: can the module be named anything?)
   * Line 4 specifies all of the packages that the executable depends on. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your libraries to executables.
 
-### Building libraries, installing executables and running tests with Cabal
-  
-Installing your libraries and executables 
+### Installing and Running Executables
 
-    > cabal install
+`cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
 
-Running your tests
-        
-    > cabal install --enable-tests 
-
-  (Open question: is there a way to run tests without installing all of the executables?)
-
-Running executables
-
-    By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
-
-    > HaskellStarter "joshcough" "HaskellStarter"
+    > githubCommitPrinter "joshcough" "HaskellStarter"
 
 ## Travis
 
