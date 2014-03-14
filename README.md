@@ -7,7 +7,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
 * [Cabal - The Haskell build tool](#cabal)
   * [Libraries](#creating-a-library)
-  * Dependencies
+  * [Dependencies](#understanding-dependencies)
   * Tests
     * Unit tests and properties
     * doctests (Documentation tests)
@@ -70,9 +70,9 @@ Maybe we want to write a library that does some fun stuff with the Github API (h
 
    http://www.haskell.org/hoogle/?hoogle=github
 
-Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed about. Poke around and find out more. After you're done poking, you should install the package:
+Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
 
-  cabal install github
+    cabal install github
 
 ## Cabal
 
@@ -101,6 +101,18 @@ A cabal file can only have one library (but you're not required to have one).
 
       build-depends:
         base >= 4 && < 5, github >= 0.7.4
+
+Building your library is easy:
+
+    > cabal build
+
+If you want to build other projects that depend on your library, you can install it locally:
+
+    > cabal install
+
+### Understanding Dependencies
+
+### Tests  
 
 ### Specifying Executables
 
