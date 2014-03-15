@@ -1,12 +1,4 @@
-module HaskellStarter.Util 
-(
-  extract
- ,printAll
-) where
-
---import Control.Monad
---import Data.List
---import Data.Traversable
+module HaskellStarter.Util (extract ,printAll) where
 
 {-|
    Forcefully pull a value out of an Either.

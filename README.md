@@ -94,6 +94,40 @@ A few helpful commands for getting started with Cabal:
   
 ### Creating a Library
 
+In order to have a library, we need some code. :) I usually put my code in a directory called `src`, but any directory name you want is fine. In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.Github` which uses the github library previously mentioned to print commits for a repo. 
+
+Let's take a look at `HaskellStarter.Util`:
+
+```Haskell
+module HaskellStarter.Util (extract ,printAll) where
+
+extract :: Show a => Either a c -> c
+extract = either (error . show) id
+
+printAll :: Show a => [a] -> IO ()
+printAll xs = mapM_ print xs
+```
+
+And `HaskellStarter.Github`:
+
+```Haskell
+module HaskellStarter.Github where
+
+import Control.Applicative
+import Github.Repos.Commits
+import HaskellStarter.Util
+
+getMessage :: Commit -> String
+getMessage = gitCommitMessage . commitGitCommit
+
+printCommitsFor :: String -> String -> IO ()
+printCommitsFor user repo = do
+  commits <- extract <$> commitsFor user repo
+  printAll $ getMessage <$> commits
+```
+
+TODO more explaining here.
+
 A cabal file can only have one library (but you're not required to have one).
 
     library 
