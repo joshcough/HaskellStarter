@@ -1,7 +1,6 @@
 module HaskellStarter.Github where
 
--- this Module uses a Github module I found on Hoogle
--- http://hackage.haskell.org/package/github
+import Control.Applicative
 import Github.Repos.Commits
 import HaskellStarter.Util
 
@@ -16,6 +15,5 @@ getMessage = gitCommitMessage . commitGitCommit
  -}
 printCommitsFor :: String -> String -> IO ()
 printCommitsFor user repo = do
-  commits        <- fmap extract $ commitsFor user repo
-  commitMessages <- return $ fmap getMessage commits
-  printAll commitMessages
+  commits <- extract <$> commitsFor user repo
+  printAll $ getMessage <$> commits
