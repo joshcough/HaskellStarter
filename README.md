@@ -2,6 +2,8 @@
 
 This project demonstrates how to set up your own real Haskell project, and helps you get a feel for the Haskell ecosystem. Currently, teaching Haskell is *not* a goal of this project, but it may in the future. As for now, basic knowledge of Haskell is assumed, and this project is aimed at people who want to build a real program or library in Haskell.
 
+[![Build Status](https://travis-ci.org/joshcough/HaskellStarter.png?branch=master)](https://travis-ci.org/joshcough/HaskellStarter)
+
 * [Prerequisites](#prerequisites)
   * [ghci - Haskell interpreter](#ghci)
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
@@ -19,7 +21,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
     * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
     * [doctests](#doctests)
     * [Running Tests](#running-tests)
-  * [Executables](#specifying-executables)
+  * [Executables](#executables)
+    * [Configuring an executable](#configuring-an-executable-in-cabal)
     * [Installing and Running Executables](#installing-and-running-executables)
   * Hackage - Publishing your library
 * [Travis - Building your project on git each commit](#travis)
@@ -349,9 +352,64 @@ test-suite unit-tests-and-properties
 
 Don't worry too much about the details here. Just know that the tests are in the `test` directory, and `Main.hs` is in there. Hopefully soon I'll be able to provide more info here, and/or make the configuration slightly less verbose.
 
+#### doctest
+
+"[doctest](https://github.com/sol/doctest-haskell) is a small program, that checks examples in Haddock comments. It is similar to the popular Python module with the same name."
+
+Let's add some tests into our documentation for the `extract` function in `HaskellStarter.Util`:
+
+```Haskell
+{-|
+   Forcefully pull a value out of an Either.
+   This function: 
+     * Returns the result if the Either is a Right.
+     * Dies with an error if the Either is a Left.
+  >>> extract $ Right 10
+  10
+  >>> extract $ Right "hello, world"
+  "hello, world"
+ -}
+extract :: Show a => Either a c -> c
+extract = either (error . show) id
+```
+
+In case it's hard to notice, I've addded:
+
+```
+  >>> extract $ Right 10
+  10
+  >>> extract $ Right "hello, world"
+  "hello, world"
+```
+
+The first example says to run the extract function with `Right 10`, and expect to get back the value 10. The second is nearly identical.
+
+In order to run doctests, we need to have a main function, and configure it in Cabal. 
+
+Here are the contents of `test/Doctest.hs`:
+
+```Haskell
+module DocTest where
+
+import System.FilePath.Glob (glob)
+import Test.DocTest (doctest)
+
+main = glob "src/**/*.hs" >>= doctest
+```
+
+and here is the Cabal test suite configuration:
+
+```
+test-suite doctest
+  type:           exitcode-stdio-1.0
+  main-is:        DocTest.hs
+  hs-source-dirs: test
+  build-depends:  base, doctest == 0.9.*, Glob == 0.7.*
+```
+
 #### Running Tests
 
-Now that we have the test suite configured, running it is very easy:
+Now that we have all of our test suites configured, running them is very easy:
 
     > cabal test
 
@@ -359,7 +417,7 @@ You can also pass the `--enable-tests` flag to `cabal install`, which will run a
         
     > cabal install --enable-tests 
 
-### Specifying Executables
+### Executables
 
 A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
 
@@ -375,6 +433,8 @@ main = do
 ```
 
 This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
+
+#### Configuring an executable in Cabal
 
 Configuring an exectuable in Cabal is very simple:
 
