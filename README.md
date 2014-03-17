@@ -14,16 +14,16 @@ This project demonstrates how to set up your own real Haskell project, and helps
     * [Building and Installing your Library](#building-and-installing-your-library)
   * [Haddock - Haskell documentation](#haddock)
   * [Dependencies](#understanding-dependencies)
+  * [Executables](#executables)
+    * [Configuring an executable](#configuring-an-executable-in-cabal)
+    * [Installing and Running Executables](#installing-and-running-executables)
   * [Tests](#tests)
     * [Unit tests with HUnit](#hunit)
     * [Properties](#quickcheck)
     * [test-framework](#test-framework)
     * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
-    * [doctests](#doctests)
     * [Running Tests](#running-tests)
-  * [Executables](#executables)
-    * [Configuring an executable](#configuring-an-executable-in-cabal)
-    * [Installing and Running Executables](#installing-and-running-executables)
+    * [doctests](#doctest)
   * Hackage - Publishing your library
 * [Travis - Building your project on git each commit](#travis)
 
@@ -42,20 +42,23 @@ Run ghci at the command line by simply typing ghci:
     > ghci
 
 Input expressions
- 
-    prelude> 5 + 5
-    10
-    prelude> let x = 10
-    prelude> x + x
-    20
 
+``` 
+prelude> 5 + 5
+10
+prelude> let x = 10
+prelude> x + x
+20
+```
 Get types with :t
 
-    prelude> :t x
-    x :: Num a => a
-    prelude> let x = 7 :: Int
-    prelude> :t x + x
-    x + x :: Int
+```
+prelude> :t x
+x :: Num a => a
+prelude> let x = 7 :: Int
+prelude> :t x + x
+x + x :: Int
+```
 
 Load files with :load
 
@@ -245,6 +248,43 @@ Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory. Notic
 
 TODO
 
+### Executables
+
+A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
+
+```Haskell
+module Main where
+
+import HaskellStarter.CommitPrinter
+import System.Environment
+
+main = do
+  args <- getArgs
+  printCommitsFor (args !! 0) (args !! 1)
+```
+
+This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
+
+#### Configuring an executable in Cabal
+
+Configuring an exectuable in Cabal is very simple:
+
+    executable githubCommitPrinter
+      hs-source-dirs: main
+      main-is: Main.hs
+      build-depends: base < 5, haskell-starter
+
+* `executable githubCommitPrinter` starts the executable block, and names it. You may have many different executables in one cabal file.
+* `hs-source-dirs` is a list of directories to find source files.
+* `main-is` specifies the Haskell file that contains the `main` function. `main` must have type `IO ()`.
+* `build-depends` is the same as it is in the library definition. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your library to executables.
+
+#### Installing and Running Executables
+
+`cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
+
+    > githubCommitPrinter joshcough HaskellStarter
+
 ### Tests  
 
 In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
@@ -352,6 +392,16 @@ test-suite unit-tests-and-properties
 
 Don't worry too much about the details here. Just know that the tests are in the `test` directory, and `Main.hs` is in there. Hopefully soon I'll be able to provide more info here, and/or make the configuration slightly less verbose.
 
+#### Running Tests
+
+Now that we have our test suite configured, running it is very easy:
+
+    > cabal test
+
+You can also pass the `--enable-tests` flag to `cabal install`, which will run all of your tests, and only install the library if all of the tests pass:
+        
+    > cabal install --enable-tests 
+
 #### doctest
 
 "[doctest](https://github.com/sol/doctest-haskell) is a small program, that checks examples in Haddock comments. It is similar to the popular Python module with the same name."
@@ -407,52 +457,7 @@ test-suite doctest
   build-depends:  base, doctest == 0.9.*, Glob == 0.7.*
 ```
 
-#### Running Tests
-
-Now that we have all of our test suites configured, running them is very easy:
-
-    > cabal test
-
-You can also pass the `--enable-tests` flag to `cabal install`, which will run all of your tests, and only install the library if all of the tests pass:
-        
-    > cabal install --enable-tests 
-
-### Executables
-
-A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
-
-```Haskell
-module Main where
-
-import HaskellStarter.CommitPrinter
-import System.Environment
-
-main = do
-  args <- getArgs
-  printCommitsFor (args !! 0) (args !! 1)
-```
-
-This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
-
-#### Configuring an executable in Cabal
-
-Configuring an exectuable in Cabal is very simple:
-
-    executable githubCommitPrinter
-      hs-source-dirs: main
-      main-is: Main.hs
-      build-depends: base < 5, haskell-starter
-
-* `executable githubCommitPrinter` starts the executable block, and names it. You may have many different executables in one cabal file.
-* `hs-source-dirs` is a list of directories to find source files.
-* `main-is` specifies the Haskell file that contains the `main` function. `main` must have type `IO ()`.
-* `build-depends` is the same as it is in the library definition. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your library to executables.
-
-#### Installing and Running Executables
-
-`cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
-
-    > githubCommitPrinter joshcough HaskellStarter
+All `test-suite` configurations get ran when you execute `cabal test`, so this there is nothing else additional needed.
 
 ## Travis
 
