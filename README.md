@@ -7,10 +7,13 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [ghci - Haskell interpreter](#ghci)
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
 * [Cabal - The Haskell build tool](#cabal)
+  * [Getting Started with Cabal](#getting-started-with-cabal)
+  * [Cabal file header](#cabal-file-header)
 * [Libraries](#creating-a-library)
   * [Modules](#creating-a-library)
   * [Configuration](#configuring-the-library-in-cabal)
   * [Building and Installing your Library](#building-and-installing-your-library)
+  * [Using the Library with ghci](#using-the-library-with-ghci)
 * [Haddock - Haskell documentation](#haddock)
 * [Dependencies](#understanding-dependencies)
 * [Executables](#executables)
@@ -103,9 +106,7 @@ x + x :: Int
 Load files with :load
 
     prelude> :load Goop
-    *Goop> :load Hoop
-            TODO: fix this, load goop, run an expression from it. 
-            add something other than x and y to it.
+    *Goop> TODO: run an expression in goop
 
 Quit ghci
 
@@ -143,7 +144,29 @@ A few helpful commands for getting started with Cabal:
 * `cabal update` updates Cabal so tht it has all of the latest package information.
 * `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
 
-This project is a working Cabal project, and this document explains the cabal configuration, which is in `haskellstarter.cabal`. Let's get started by creating a Haskell library.
+This project is a working Cabal project, and this document explains the cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
+
+#### Cabal file header
+
+```
+name:                haskell-starter
+version:             0.1.0
+synopsis:            A demo for getting a project started in Haskell.
+homepage:            https://github.com/joshcough/HaskellStarter
+license:             MIT
+license-file:        LICENSE
+author:              Josh Cough
+maintainer:          joshcough@gmail.com
+category:            Demo
+build-type:          Simple
+cabal-version:       >=1.8
+
+source-repository head
+  type: git
+    location: git@github.com:joshcough/HaskellStarter.git
+``` 
+
+TODO: explain this here
   
 ## Creating a Library
 
@@ -214,6 +237,10 @@ Building your library is easy:
 If you want to build other projects that depend on your library, you can install it locally:
 
     > cabal install
+
+### Using the Library with ghci
+
+TODO
 
 ## Haddock
 
@@ -542,6 +569,7 @@ Books:
 
 Cabal:
 * http://www.haskell.org/cabal/
+* http://haskell.org/cabal/users-guide/
 
 Travis:
 * https://travis-ci.org/

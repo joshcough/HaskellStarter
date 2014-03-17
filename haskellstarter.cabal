@@ -1,7 +1,5 @@
--- documentation, see http://haskell.org/cabal/users-guide/
-
 name:                haskell-starter
-version:             0.1
+version:             0.1.0
 synopsis:            A demo for getting a project started in Haskell.
 homepage:            https://github.com/joshcough/HaskellStarter
 license:             MIT
@@ -30,7 +28,7 @@ library
 
 -- configuration for an executable 
 executable githubCommitPrinter
-  hs-source-dirs: main
+  hs-source-dirs: executables
   main-is: Main.hs
   build-depends: base < 5, haskell-starter
 
