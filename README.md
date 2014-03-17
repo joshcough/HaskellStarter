@@ -120,6 +120,7 @@ A few helpful commands for getting started with Cabal:
 * `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
   
 ### Creating a Library
+==========
 
 #### Modules
 
