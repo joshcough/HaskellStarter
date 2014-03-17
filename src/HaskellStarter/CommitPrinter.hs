@@ -1,4 +1,8 @@
-module HaskellStarter.Github where
+{-|
+  This module allows you to print the commits messages
+  in a github repo.
+ -}
+module HaskellStarter.CommitPrinter (printCommitsFor) where
 
 import Control.Applicative
 import Github.Repos.Commits

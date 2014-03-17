@@ -21,7 +21,7 @@ library
   hs-source-dirs: src
 
   exposed-modules:
-    HaskellStarter.Github
+    HaskellStarter.CommitPrinter
   other-modules:
     HaskellStarter.Util
   build-depends:

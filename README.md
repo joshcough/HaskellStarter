@@ -7,7 +7,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
 * [Cabal - The Haskell build tool](#cabal)
   * [Libraries](#creating-a-library)
-    * [Configuration](#creating-a-library)
+    * [Modules](#creating-a-library)
+    * [Configuration](#configuring-the-library-in-cabal)
     * [Building and Installing your Library](#building-and-installing-your-library)
   * [Haddock - Haskell documentation](#haddock)
   * [Dependencies](#understanding-dependencies)
@@ -94,24 +95,28 @@ A few helpful commands for getting started with Cabal:
   
 ### Creating a Library
 
-In order to have a library, we need some code. :) I usually put my code in a directory called `src`, but any directory name you want is fine. In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.Github` which uses the github library previously mentioned to print commits for a repo. 
+#### Modules
+
+In order to have a library, we need some code. :) I usually put my code in a directory called `src`, but any directory name you want is fine. In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.CommitPrinter` which uses the github library previously mentioned to print commits for a repo. 
 
 Let's take a look at `HaskellStarter.Util`:
 
 ```Haskell
-module HaskellStarter.Util (extract ,printAll) where
+module HaskellStarter.Util (extract, printAll) where
 
 extract :: Show a => Either a c -> c
 extract = either (error . show) id
 
-printAll :: Show a => [a] -> IO ()
+printAll :: [String] -> IO ()
 printAll xs = mapM_ print xs
 ```
 
-And `HaskellStarter.Github`:
+Don't worry too much yet about what this code actually does; we'll document it shortly. 
+
+And `HaskellStarter.CommitPrinter`:
 
 ```Haskell
-module HaskellStarter.Github where
+module HaskellStarter.CommitPrinter where
 
 import Control.Applicative
 import Github.Repos.Commits
@@ -126,15 +131,17 @@ printCommitsFor user repo = do
   printAll $ getMessage <$> commits
 ```
 
-TODO more explaining here.
+We will document this code shortly too, but do notice that it imports `Github.Repos.Commits`, which is a module in the github library.
 
-A cabal file can only have one library (but you're not required to have one).
+#### Configuring the library in Cabal
+
+A cabal file can only have one library (but you're not required to have one). Here's the configuration for it:
 
     library 
       hs-source-dirs: src
 
       exposed-modules:
-        HaskellStarter.Github
+        HaskellStarter.CommitPrinter
 
       other-modules:
         HaskellStarter.Util
@@ -198,7 +205,7 @@ A library is a collection of code that you can depend on, but cannot actually ex
 ```Haskell
 module Main where
 
-import HaskellStarter.Github
+import HaskellStarter.CommitPrinter
 import System.Environment
 
 main = do

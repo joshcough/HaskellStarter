@@ -1,6 +1,6 @@
 module Main where
 
-import HaskellStarter.Github
+import HaskellStarter.CommitPrinter
 import System.Environment
 
 main = do
