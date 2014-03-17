@@ -1,5 +1,4 @@
 # HaskellStarter [![Build Status](https://travis-ci.org/joshcough/HaskellStarter.png?branch=master)](https://travis-ci.org/joshcough/HaskellStarter)
-===========
 
 This project demonstrates how to set up your own real Haskell project, and helps you get a feel for the Haskell ecosystem. Currently, teaching Haskell is *not* a goal of this project, but it may in the future. As for now, basic knowledge of Haskell is assumed, and this project is aimed at people who want to build a real program or library in Haskell.
 
