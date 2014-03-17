@@ -574,5 +574,8 @@ Cabal:
 Travis:
 * https://travis-ci.org/
 
+Other:
+* http://www.haskell.org/haskellwiki/Package_versioning_policy
+
 Other getting started links:
 * http://taylor.fausak.me/2014/03/04/haskeleton-a-haskell-project-skeleton/
