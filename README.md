@@ -1,9 +1,10 @@
 # HaskellStarter
 
-This project demonstrates how to set up your own real Haskell project, and helps you get a feel for the Haskell ecosystem. Currently, teaching Haskell is *not* a goal of this project, but it may in the future. As for now, basic knowledge of Haskell is assumed, and this project is aimed at people who want to build a real program or library in Haskell.
-
 [![Build Status](https://travis-ci.org/joshcough/HaskellStarter.png?branch=master)](https://travis-ci.org/joshcough/HaskellStarter)
 
+This project demonstrates how to set up your own real Haskell project, and helps you get a feel for the Haskell ecosystem. Currently, teaching Haskell is *not* a goal of this project, but it may in the future. As for now, basic knowledge of Haskell is assumed, and this project is aimed at people who want to build a real program or library in Haskell.
+
+* [Getting started with this project](#getting-started-with-this-project)
 * [Prerequisites](#prerequisites)
   * [ghci - Haskell interpreter](#ghci)
   * [Hoogle - Finding functions, libraries and documentation](#hoogle)
@@ -19,13 +20,30 @@ This project demonstrates how to set up your own real Haskell project, and helps
     * [Installing and Running Executables](#installing-and-running-executables)
   * [Tests](#tests)
     * [Unit tests with HUnit](#hunit)
-    * [Properties](#quickcheck)
+    * [Properties with QuickCheck](#quickcheck)
     * [test-framework](#test-framework)
     * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
     * [Running Tests](#running-tests)
     * [doctests](#doctest)
   * Hackage - Publishing your library
 * [Travis - Building your project on git each commit](#travis)
+* [Further Reading](#further-reading)
+
+## Getting started with this project
+
+The best way to get started with this project is to simply clone it, and poke around.
+
+`git clone https://github.com/joshcough/HaskellStarter.git`
+
+Some valuable commands to play with (all of which will be explained) are:
+
+```
+> cabal update
+> cabal install github
+> cabal build
+> cabal test
+> cabal install
+```
 
 ## Prerequisites
 
@@ -100,6 +118,7 @@ A few helpful commands for getting started with Cabal:
 
 * `cabal --help` shows you all the Cabal commands. Highly recommended.
 * `cabal init` runs you through a series of questions to start a new project.
+* `cabal update` updates Cabal so tht it has all of the latest package information.
 * `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
   
 ### Creating a Library
@@ -258,6 +277,7 @@ module Main where
 import HaskellStarter.CommitPrinter
 import System.Environment
 
+main :: IO ()
 main = do
   args <- getArgs
   printCommitsFor (args !! 0) (args !! 1)
@@ -463,3 +483,44 @@ All `test-suite` configurations get ran when you execute `cabal test`, so this t
 
 Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
 
+## Further Reading
+
+Here is a bunch of links (in no particular order) that I found useful in creating this project, and for Haskell development in general.
+
+Hoogle:
+* http://www.haskell.org/hoogle/ (This is probably the most important link, for me.)
+
+Hackage:
+* http://hackage.haskell.org
+* http://hackage.haskell.org/packages
+* http://hackage.haskell.org/upload
+
+Libraries:
+* http://hackage.haskell.org/package/github
+
+Haddock:
+* http://www.haskell.org/haddock/#Overview
+
+doctest:
+* https://github.com/sol/doctest-haskell
+* http://hackage.haskell.org/package/doctest
+
+Testing:
+* http://hunit.sourceforge.net/
+* http://hunit.sourceforge.net/HUnit-1.0/Guide.html
+* http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2
+* http://hackage.haskell.org/package/test-framework
+* https://github.com/sol/doctest-haskell
+
+Books:
+* http://learnyouahaskell.com/
+* http://book.realworldhaskell.org/
+
+Cabal:
+* http://www.haskell.org/cabal/
+
+Travis:
+* https://travis-ci.org/
+
+Other getting started links:
+* http://taylor.fausak.me/2014/03/04/haskeleton-a-haskell-project-skeleton/
