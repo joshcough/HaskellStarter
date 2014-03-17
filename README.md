@@ -33,6 +33,30 @@ The best way to get started with this project is to simply clone it, and poke ar
 
 `git clone https://github.com/joshcough/HaskellStarter.git`
 
+Here are the contents of the project:
+
+```
+$ tree .
+.
+├── LICENSE
+├── README.md
+├── executables
+│   └── Main.hs
+├── haskellstarter.cabal
+├── src
+│   └── HaskellStarter
+│       ├── CommitPrinter.hs
+│       └── Util.hs
+├── test
+│   ├── DocTest.hs
+│   ├── Main.hs
+│   ├── Properties.hs
+│   └── UnitTests.hs
+└── travis
+    ├── cabal-apt-install
+        └── config
+```
+
 Some valuable commands to play with (all of which will be explained) are:
 
 ```
@@ -269,7 +293,7 @@ TODO
 
 ## Executables
 
-A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
+A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `executables/Main.hs` from this project:
 
 ```Haskell
 module Main where
@@ -290,7 +314,7 @@ This is a command line program that takes two arguments - a username and a proje
 Configuring an exectuable in Cabal is very simple:
 
     executable githubCommitPrinter
-      hs-source-dirs: main
+      hs-source-dirs: executables
       main-is: Main.hs
       build-depends: base < 5, haskell-starter
 
