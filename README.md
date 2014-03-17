@@ -44,7 +44,6 @@ Some valuable commands to play with (all of which will be explained) are:
 ```
 
 ## Prerequisites
-===========
 
 As stated, this project assumes some basic knowledge of Haskell. If you don't have that, I recommend [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/). Also, if you haven't already, go install the [Haskell Platform](http://www.haskell.org/platform/). 
 
@@ -108,7 +107,6 @@ Yay, we've discovered a Github package - http://hackage.haskell.org/package/gith
     > cabal install github
 
 ## Cabal
-===========
 
 While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
 
@@ -122,7 +120,6 @@ A few helpful commands for getting started with Cabal:
 * `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
   
 ### Creating a Library
-===========
 
 #### Modules
 
@@ -193,7 +190,6 @@ If you want to build other projects that depend on your library, you can install
     > cabal install
 
 ### Haddock
-===========
 
 Let's add some documentation to the code, and then generate pretty html from it.
 
@@ -266,12 +262,10 @@ Which outputs this info:
 Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory. Notice that only publicly exposed modules are added to the documentation. 
 
 ### Understanding Dependencies
-===========
 
 TODO
 
 ### Executables
-===========
 
 A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
 
@@ -310,7 +304,6 @@ Configuring an exectuable in Cabal is very simple:
     > githubCommitPrinter joshcough HaskellStarter
 
 ### Tests  
-===========
 
 In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
 
@@ -485,12 +478,10 @@ test-suite doctest
 All `test-suite` configurations get ran when you execute `cabal test`, so this there is nothing else additional needed.
 
 ## Travis
-===========
 
 Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
 
 ## Further Reading
-===========
 
 Here is a bunch of links (in no particular order) that I found useful in creating this project, and for Haskell development in general.
 
