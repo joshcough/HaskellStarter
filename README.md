@@ -13,8 +13,11 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Haddock - Haskell documentation](#haddock)
   * [Dependencies](#understanding-dependencies)
   * [Tests](#tests)
-    * Unit tests and properties
-    * doctests (Documentation tests)
+    * [Unit tests with HUnit](#hunit)
+    * [Properties](#quickcheck)
+    * [test-framework](#test-framework)
+    * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
+    * [doctests](#doctests)
     * [Running Tests](#running-tests)
   * [Executables](#specifying-executables)
     * [Installing and Running Executables](#installing-and-running-executables)
@@ -139,13 +142,10 @@ A cabal file can only have one library (but you're not required to have one). He
 
     library 
       hs-source-dirs: src
-
       exposed-modules:
         HaskellStarter.CommitPrinter
-
       other-modules:
         HaskellStarter.Util
-
       build-depends:
         base >= 4 && < 5, github >= 0.7.4
 
@@ -236,7 +236,7 @@ Which outputs this info:
      100% (  2 /  2) in 'HaskellStarter.CommitPrinter'
     Documentation created: dist/doc/html/haskell-starter/index.html
 
-Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory.
+Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory. Notice that only publicly exposed modules are added to the documentation. 
 
 ### Understanding Dependencies
 
@@ -248,11 +248,110 @@ In Haskell and Cabal there are a _lot_ of different test libraries and framework
 
 * HUnit - a library for writing unit tests
 * QuickCheck - a library for writing properties 
-* test-framework - A framework for organizing and running unit tests and properties
+* test-framework - a framework for organizing and running unit tests and properties
+* doctest - inject tests directly into your documentation
+
+#### HUnit
+
+[HUnit](#http://hunit.sourceforge.net/) is "is a unit testing framework for Haskell, similar to the JUnit tool for Java."
+
+It allows you to write very simple assertions of this form:
+
+```Haskell
+actual @?= expected
+```
+
+And if actual doesn't equal expected, then you will get a test error.
+
+I've written a very simple example in `test/UnitTests.hs`* that I think is very self explanatory:
+
+```Haskell
+module UnitTests where
+
+import Test.Framework.Providers.API
+import Test.Framework.Providers.HUnit
+import Test.HUnit
+
+tests = testGroup "HUnit tests" [
+  testCase "a passing test!"       $ 5 @?= 5
+ ,testCase "another passing test!" $ 6 @?= 6 ]
+```
+
+*This doesn't currently import anything in the library. The reason for this is a little subtle - `HaskellStarter.Utils` is the only module with easily testable functions, but it is not exposed, so we don't have access to it! There are a couple ways around this, but the easiest is to simply expose all modules that you wish to test.
+
+We will see how to run these tests shortly.
+
+#### QuickCheck
+
+[QuickCheck](#http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2) is a library for writing properties for your functions, and a framework for testing those properties with random inputs. Here is a simple example property that for all lists of integers, tests that the reverse or the reverse of that list is the equal to that list.
+
+```Haskell
+prop_list_reverse_reverse :: [Int] -> Bool
+prop_list_reverse_reverse list = list == reverse (reverse list)
+```
+
+This property is put into a module in `tests/Properties.hs`:
+
+```Haskell
+{-# LANGUAGE TemplateHaskell #-}
+module Properties where
+
+import Test.Framework.Providers.QuickCheck2
+import Test.Framework.TH
+import Test.QuickCheck
+
+prop_list_reverse_reverse :: [Int] -> Bool
+prop_list_reverse_reverse list = list == reverse (reverse list)
+
+prop_list_length :: [Int] -> Int -> Bool
+prop_list_length list i = length (i : list) == 1 + length list
+
+tests = $testGroupGenerator
+```
+
+This module has a couple of very simple properties in it (once again, unrelated to the code in the library). We will see how to run these shortly, as well.
+
+#### test-framework
+
+Before we can run our tests, we need to package them up into a module with a main function. We do that using test-framework. Here are the contents of `test/Main.hs`:
+
+```Haskell
+module Main where
+
+import Properties
+import UnitTests
+import Test.Framework.Runners.Console (defaultMain)
+
+main = defaultMain $ [UnitTests.tests, Properties.tests]
+```
+
+This module provides a main function using the defaultMain function from test-framework. It takes a list of test groups as an argument, and runs all the tests in those groups. It also takes care of printing fancy messages for successes and failures.
+
+#### Configuring a test suite in Cabal
+
+Before we can run our tests, we need to configure our test suite in Cabal:
+
+```
+-- configuration for Unit tests and properties
+test-suite unit-tests-and-properties
+  type:           exitcode-stdio-1.0
+  main-is:        Main.hs
+  hs-source-dirs: test
+  build-depends:
+    base,
+    HUnit,
+    QuickCheck                 >= 2.4,
+    test-framework             >= 0.6,
+    test-framework-hunit,
+    test-framework-quickcheck2 >= 0.2,
+    test-framework-th          >= 0.2
+```
+
+Don't worry too much about the details here. Just know that the tests are in the `test` directory, and `Main.hs` is in there. Hopefully soon I'll be able to provide more info here, and/or make the configuration slightly less verbose.
 
 #### Running Tests
 
-Running your tests is also easy:
+Now that we have the test suite configured, running it is very easy:
 
     > cabal test
 
