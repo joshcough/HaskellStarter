@@ -79,7 +79,7 @@ Maybe we want to write a library that does some fun stuff with the Github API (h
 
 Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
 
-    cabal install github
+    > cabal install github
 
 ## Cabal
 
@@ -168,13 +168,75 @@ If you want to build other projects that depend on your library, you can install
 
 ### Haddock
 
-Let's add some documentation to the code:
+Let's add some documentation to the code, and then generate pretty html from it.
 
-TODO
+First `HaskellStarter.Util`:
+
+```Haskell
+{-|
+ This module contains some simple utility functions.
+ It exports two functions, extract and printAll.
+ -}
+module HaskellStarter.Util (extract, printAll) where
+
+{-|
+   Forcefully pull a value out of an Either.
+   This function: 
+     * Returns the result if the Either is a Right.
+     * Dies with an error if the Either is a Left.
+ -}
+extract :: Show a => Either a c -> c
+extract = either (error . show) id
+
+{-|
+   Print a list of Strings, one per line.
+ -}
+printAll :: [String] -> IO ()
+printAll xs = mapM_ print xs
+```
+
+And `HaskellStarter.CommitPrinter`:
+
+```Haskell
+{-|
+  This module allows you to print the commits messages
+  in a github repo.
+ -}
+module HaskellStarter.CommitPrinter (printCommitsFor) where
+
+import Control.Applicative
+import Github.Repos.Commits
+import HaskellStarter.Util
+
+{-|
+   Get the actual commit message from a Commit.
+ -}
+getMessage :: Commit -> String
+getMessage = gitCommitMessage . commitGitCommit
+
+{-|
+  Print all of the commits messages for a given user and repo.
+ -}
+printCommitsFor :: String -> String -> IO ()
+printCommitsFor user repo = do
+  commits <- extract <$> commitsFor user repo
+  printAll $ getMessage <$> commits
+```
+
+Hopefully this documentation helps explain what the code does. If not, feel free to fix it and send me a pull request.
 
 With the docs in our source code, generating pretty html from them is simple:
 
-    cabal haddock
+    > cabal haddock
+
+Which outputs this info:
+
+    Haddock coverage:
+     100% (  3 /  3) in 'HaskellStarter.Util'
+     100% (  2 /  2) in 'HaskellStarter.CommitPrinter'
+    Documentation created: dist/doc/html/haskell-starter/index.html
+
+Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory.
 
 ### Understanding Dependencies
 
