@@ -106,11 +106,11 @@ Yay, we've discovered a Github package - http://hackage.haskell.org/package/gith
 
     > cabal install github
 
-## Cabal
+### Cabal
 
-While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
+While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is installed with the Haskell Platform, and is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
 
-### Getting Started
+#### Getting Started with Cabal
 
 A few helpful commands for getting started with Cabal:
 
@@ -118,10 +118,12 @@ A few helpful commands for getting started with Cabal:
 * `cabal init` runs you through a series of questions to start a new project.
 * `cabal update` updates Cabal so tht it has all of the latest package information.
 * `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
-  
-### Creating a Library
 
-#### Modules
+This project is a working Cabal project, and this document explains the cabal configuration, which is in `haskellstarter.cabal`. Let's get started by creating a Haskell library.
+  
+## Creating a Library
+
+### Modules
 
 In order to have a library, we need some code. :) I usually put my code in a directory called `src`, but any directory name you want is fine. In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.CommitPrinter` which uses the github library previously mentioned to print commits for a repo. 
 
@@ -159,7 +161,7 @@ printCommitsFor user repo = do
 
 We will document this code shortly too, but do notice that it imports `Github.Repos.Commits`, which is a module in the github library.
 
-#### Configuring the library in Cabal
+### Configuring the library in Cabal
 
 A cabal file can only have one library (but you're not required to have one). Here's the configuration for it:
 
@@ -179,7 +181,7 @@ A cabal file can only have one library (but you're not required to have one). He
 
 A quick note about modules: Cabal must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`. I find this good and bad - on one hand it allows you to have Haskell files in your source directory that you don't want to be compiled, on the other, it forces you to list all of your modules.
 
-#### Building and Installing your Library
+### Building and Installing your Library
 
 Building your library is easy:
 
@@ -189,7 +191,7 @@ If you want to build other projects that depend on your library, you can install
 
     > cabal install
 
-### Haddock
+## Haddock
 
 Let's add some documentation to the code, and then generate pretty html from it.
 
@@ -261,11 +263,11 @@ Which outputs this info:
 
 Now, open up `dist/doc/html/haskell-starter/index.html` and see the glory. Notice that only publicly exposed modules are added to the documentation. 
 
-### Understanding Dependencies
+## Understanding Dependencies
 
 TODO
 
-### Executables
+## Executables
 
 A library is a collection of code that you can depend on, but cannot actually execute. Fortunately, you can build executables with Cabal very easily. To do this, we first need a module with a main function. Here is `main/Main.hs` from this project:
 
@@ -283,7 +285,7 @@ main = do
 
 This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
 
-#### Configuring an executable in Cabal
+### Configuring an executable in Cabal
 
 Configuring an exectuable in Cabal is very simple:
 
@@ -297,13 +299,13 @@ Configuring an exectuable in Cabal is very simple:
 * `main-is` specifies the Haskell file that contains the `main` function. `main` must have type `IO ()`.
 * `build-depends` is the same as it is in the library definition. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your library to executables.
 
-#### Installing and Running Executables
+### Installing and Running Executables
 
 `cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
 
     > githubCommitPrinter joshcough HaskellStarter
 
-### Tests  
+## Tests  
 
 In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
 
@@ -312,7 +314,7 @@ In Haskell and Cabal there are a _lot_ of different test libraries and framework
 * test-framework - a framework for organizing and running unit tests and properties
 * doctest - inject tests directly into your documentation
 
-#### HUnit
+### HUnit
 
 [HUnit](#http://hunit.sourceforge.net/) is "is a unit testing framework for Haskell, similar to the JUnit tool for Java."
 
@@ -342,7 +344,7 @@ tests = testGroup "HUnit tests" [
 
 We will see how to run these tests shortly.
 
-#### QuickCheck
+### QuickCheck
 
 [QuickCheck](#http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2) is a library for writing properties for your functions, and a framework for testing those properties with random inputs. Here is a simple example property that for all lists of integers, tests that the reverse or the reverse of that list is the equal to that list.
 
@@ -372,7 +374,7 @@ tests = $testGroupGenerator
 
 This module has a couple of very simple properties in it (once again, unrelated to the code in the library). We will see how to run these shortly, as well.
 
-#### test-framework
+### test-framework
 
 Before we can run our tests, we need to package them up into a module with a main function. We do that using test-framework. Here are the contents of `test/Main.hs`:
 
@@ -388,7 +390,7 @@ main = defaultMain $ [UnitTests.tests, Properties.tests]
 
 This module provides a main function using the defaultMain function from test-framework. It takes a list of test groups as an argument, and runs all the tests in those groups. It also takes care of printing fancy messages for successes and failures.
 
-#### Configuring a test suite in Cabal
+### Configuring a test suite in Cabal
 
 Before we can run our tests, we need to configure our test suite in Cabal:
 
