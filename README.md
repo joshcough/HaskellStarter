@@ -510,7 +510,7 @@ In order to run doctests, we need to have a main function, and configure it in C
 Here are the contents of `test/Doctest.hs`:
 
 ```Haskell
-module DocTest where
+module Main where
 
 import System.FilePath.Glob (glob)
 import Test.DocTest (doctest)

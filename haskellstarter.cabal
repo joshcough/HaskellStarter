@@ -46,7 +46,7 @@ test-suite unit-tests-and-properties
     test-framework-quickcheck2 >= 0.2,
     test-framework-th          >= 0.2
 
--- doc tests
+-- doctests
 test-suite doctest
   type:           exitcode-stdio-1.0
   main-is:        DocTest.hs
