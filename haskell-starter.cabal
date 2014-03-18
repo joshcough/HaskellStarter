@@ -8,7 +8,7 @@ author:              Josh Cough
 maintainer:          joshcough@gmail.com
 category:            Demo
 build-type:          Simple
-cabal-version:       >=1.10
+cabal-version:       >=1.8
 
 source-repository head
   type: git

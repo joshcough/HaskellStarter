@@ -68,11 +68,13 @@ $ tree -a -I .git
 Some valuable commands to play with (all of which will be explained) are:
 
 ```
-> cabal update
-> cabal install github
-> cabal build
-> cabal test
-> cabal install
+$ cabal --help`
+$ cabal update
+$ cabal init
+$ cabal install github
+$ cabal build
+$ cabal test
+$ cabal install
 ```
 
 ## Prerequisites
@@ -87,7 +89,7 @@ ghci is a simple way to get started playing with Haskell, and is essential for t
 
 Run ghci at the command line by simply typing ghci:
       
-    > ghci
+    $ ghci
 
 Input expressions
 
@@ -134,7 +136,7 @@ Maybe we want to write a library that does some fun stuff with the Github API (h
 
 Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
 
-    > cabal install github
+    $ cabal install github
 
 ### Cabal
 
@@ -145,9 +147,13 @@ While ghci is useful for playing with Haskell code, it doesn't enable you to bui
 A few helpful commands for getting started with Cabal:
 
 * `cabal --help` shows you all the Cabal commands. Highly recommended.
+* `cabal update` updates Cabal so that it has all of the latest package information.
 * `cabal init` runs you through a series of questions to start a new project.
-* `cabal update` updates Cabal so tht it has all of the latest package information.
-* `cabal install` installs a package. It takes a single argument, like `cabal install github` which was used above.
+* `cabal build` builds your project locally (into the `dist` directory).
+* `cabal test` builds your project and then runs all of your tests.
+* `cabal install` installs a package.
+  * Given zero arguments, it will install your package.
+  * Given any number of library arguments (like `cabal install github` which was used above), it will download those libraries from hackage, build, and install them.
 
 This project is a working Cabal project, and this document explains the cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
 
@@ -155,7 +161,7 @@ This project is a working Cabal project, and this document explains the cabal co
 
 ```
 name:                haskell-starter
-version:             0.1.0
+version:             0.1.0.0
 synopsis:            A demo for getting a project started in Haskell.
 homepage:            https://github.com/joshcough/HaskellStarter
 license:             MIT
@@ -237,11 +243,11 @@ A quick note about modules: Cabal must know about all of your modules in the lib
 
 Building your library is easy:
 
-    > cabal build
+    $ cabal build
 
 If you want to build other projects that depend on your library, you can install it locally:
 
-    > cabal install
+    $ cabal install
 
 ### Using the Library with ghci
 
@@ -308,7 +314,7 @@ Hopefully this documentation helps explain what the code does. If not, feel free
 
 With the docs in our source code, generating pretty html from them is simple:
 
-    > cabal haddock
+    $ cabal haddock
 
 Which outputs this info:
 
@@ -359,7 +365,7 @@ Configuring an exectuable in Cabal is very simple:
 
 `cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
 
-    > githubCommitPrinter joshcough HaskellStarter
+    $ githubCommitPrinter joshcough HaskellStarter
 
 ## Tests  
 
@@ -472,11 +478,11 @@ Don't worry too much about the details here. Just know that the tests are in the
 
 Now that we have our test suite configured, running it is very easy:
 
-    > cabal test
+    $ cabal test
 
 You can also pass the `--enable-tests` flag to `cabal install`, which will run all of your tests, and only install the library if all of the tests pass:
         
-    > cabal install --enable-tests 
+    $ cabal install --enable-tests 
 
 #### doctest
 
