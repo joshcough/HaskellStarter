@@ -125,7 +125,7 @@ Hoogle (http://www.haskell.org/hoogle/) is the go to place for finding:
 
 Maybe we want to write a library that does some fun stuff with the Github API (http://developer.github.com/v3/). Let's go search Hoogle to see if there is anything already there to help us:
 
-   http://www.haskell.org/hoogle/?hoogle=github
+   https://lmddgtfy.net/?q=!hoogle%20github
 
 Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
 
