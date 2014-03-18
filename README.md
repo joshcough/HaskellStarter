@@ -68,7 +68,7 @@ $ tree -a -I .git
 Some valuable commands to play with (all of which will be explained) are:
 
 ```
-$ cabal --help`
+$ cabal --help
 $ cabal update
 $ cabal init
 $ cabal install github
@@ -177,7 +177,7 @@ source-repository head
     location: git@github.com:joshcough/HaskellStarter.git
 ``` 
 
-TODO: explain this here
+Most of these fields are self explanatory, and are mostly for documentation, and only a couple of them are required. More information on what each of these fields means and which ones are required can be found at http://www.haskell.org/cabal/users-guide/developing-packages.html.
   
 ## Creating a Library
 
@@ -580,7 +580,8 @@ Books:
 
 Cabal:
 * http://www.haskell.org/cabal/
-* http://haskell.org/cabal/users-guide/
+* http://www.haskell.org/cabal/users-guide/
+* http://www.haskell.org/cabal/users-guide/developing-packages.html
 
 Travis:
 * https://travis-ci.org/
