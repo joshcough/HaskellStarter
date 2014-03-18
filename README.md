@@ -39,13 +39,16 @@ The best way to get started with this project is to simply clone it, and poke ar
 Here are the contents of the project:
 
 ```
-$ tree .
+$ tree -a -I .git
 .
+├── .gitignore
+├── .travis.yml
 ├── LICENSE
 ├── README.md
+├── Setup.hs
 ├── executables
 │   └── Main.hs
-├── haskellstarter.cabal
+├── haskell-starter.cabal
 ├── src
 │   └── HaskellStarter
 │       ├── CommitPrinter.hs
@@ -58,6 +61,8 @@ $ tree .
 └── travis
     ├── cabal-apt-install
         └── config
+
+5 directories, 15 files
 ```
 
 Some valuable commands to play with (all of which will be explained) are:
