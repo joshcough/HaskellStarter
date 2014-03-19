@@ -1,5 +1,3 @@
 language: haskell
-before_install:
-  - travis/cabal-apt-install --enable-tests --force
 script:
   - cabal install --enable-tests
