@@ -26,8 +26,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
   * [Running Tests](#running-tests)
   * [doctests](#doctest)
-  * Hackage – Publishing your library
 * [Travis – Building your project on git each commit](#travis)
+* [Publishing your library](#publishing-your-library)
 * [Further Reading](#further-reading)
 * [TODO](#todo)
 
@@ -585,6 +585,10 @@ script:
 To enable your GitHub repo to build on Travis: setup a Travis account, go to https://travis-ci.org/profile, find the repo you want to build, and simply flip the switch from Off to On. That's it.
 
 The version in this project is slightly more complicated in order to allow the Travis build to pull dependencies even what Hackage is down. You shouldn't really need to worry about understanding those changes though, but if you're curious, check out `.travis.yml` and the `travis` directory.
+
+## Publishing Your Library
+
+TODO
 
 ## Further Reading
 
