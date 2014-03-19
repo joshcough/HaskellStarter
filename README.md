@@ -543,7 +543,17 @@ All `test-suite` configurations get ran when you execute `cabal test`, so this t
 
 ## Travis
 
-Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use Travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
+[Travis](https://travis-ci.org) is a service that works with Github for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use Travis, and technically all you need to do that is have a `.travis.yml` file in the root of your project with these contents:
+
+```YAML
+language: haskell
+script:
+  - cabal install --enable-tests
+```
+
+To enable your GitHub repo to build on Travis: setup a Travis account, go to https://travis-ci.org/profile, find the repo you want to build, and simply flip the switch from Off to On. That's it.
+
+The version in this project is slightly more complicated in order to allow the Travis build to pull dependencies even what Hackage is down. You shouldn't really need to worry about understanding those changes though, but if you're curious, check out `.travis.yml` and the `travis` directory.
 
 ## Further Reading
 
