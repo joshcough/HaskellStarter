@@ -123,13 +123,12 @@ prelude> :load Goop
 Quit ghci
 
 ```haskell
-prelude> :q
 prelude> ^d
 ```
 
 ### Hoogle
 
-Hoogle (http://www.haskell.org/hoogle/) is the go to place for finding: 
+[Hoogle](http://www.haskell.org/hoogle/) is the go to place for finding: 
 
 * Functions
 * Libraries
@@ -463,7 +462,7 @@ This module has a couple of very simple properties in it (once again, unrelated 
 
 ### test-framework
 
-Before we can run our tests, we need to package them up into a module with a main function. We do that using test-framework. Here are the contents of `test/Main.hs`:
+Before we can run our tests, we need to package them up into a module with a main function. We do that using [test-framework](http://hackage.haskell.org/package/test-framework). Here are the contents of `test/Main.hs`:
 
 ```Haskell
 module Main where
