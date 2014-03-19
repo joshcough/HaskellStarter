@@ -587,7 +587,7 @@ The version in this project is slightly more complicated in order to allow the T
 
 ## Further Reading
 
-Here is a bunch of links (in no particular order) that I found useful in creating this project, and for Haskell development in general.
+Here's a bunch of links (in no particular order) that I found useful in creating this project, and for Haskell development in general.
 
 Hoogle:
 * http://www.haskell.org/hoogle/ (This is probably the most important link, for me.)
