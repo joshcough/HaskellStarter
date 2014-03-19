@@ -5,7 +5,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
 * [Getting started with this project](#getting-started-with-this-project)
 * [Prerequisites](#prerequisites)
   * [ghci – Haskell interpreter](#ghci)
-  * [Hoogle – Finding functions, libraries and documentation](#hoogle)
+* [Hoogle – Finding functions, libraries and documentation](#hoogle)
 * [Cabal – The Haskell build tool](#cabal)
   * [Getting Started with Cabal](#getting-started-with-cabal)
   * [Cabal file header](#cabal-file-header)
@@ -126,7 +126,7 @@ Quit ghci
 prelude> ^d
 ```
 
-### Hoogle
+## Hoogle
 
 [Hoogle](http://www.haskell.org/hoogle/) is the go to place for finding: 
 
@@ -146,11 +146,11 @@ Yay, we've discovered a Github package — http://hackage.haskell.org/package/gi
 $ cabal install github
 ```
 
-### Cabal
+## Cabal
 
 While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is installed with the Haskell Platform, and is the canonical tool for building Haskell code. This section explains using Cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
 
-#### Getting Started with Cabal
+### Getting Started with Cabal
 
 A few helpful commands for getting started with Cabal:
 
@@ -167,7 +167,7 @@ A few helpful commands for getting started with Cabal:
 
 This project is a working Cabal project, and this document explains the Cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
 
-#### Cabal file header
+### Cabal file header
 
 ```
 name:                haskell-starter
