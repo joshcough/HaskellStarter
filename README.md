@@ -29,6 +29,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * Hackage – Publishing your library
 * [Travis – Building your project on git each commit](#travis)
 * [Further Reading](#further-reading)
+* [TODO](#todo)
 
 ## Getting started with this project
 
@@ -632,3 +633,23 @@ Other:
 
 Other getting started links:
 * http://taylor.fausak.me/2014/03/04/haskeleton-a-haskell-project-skeleton/
+
+## TODO
+
+This section contains things that still need to be done in this project. If you feel like something is missing and it isn't in this list, please let me know! 
+
+Definitely:
+
+* Explain what Hackage is.
+* Maybe give more attention to writing modules. This is for people with just basic ghci experience.
+* All of the Dependencies section, especially `base`.
+* Explain imports better, especially from the executable.
+* Upload my a project to Hackage, and explain how to do that.
+* Cabal sandboxes
+
+Maybe:
+
+* cabal unpack - you can pull something, unpack it, and fix it
+* HLint
+* Test coverage
+* Benchmarks
