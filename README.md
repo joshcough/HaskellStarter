@@ -140,7 +140,7 @@ Yay, we've discovered a Github package - http://hackage.haskell.org/package/gith
 
 ### Cabal
 
-While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is installed with the Haskell Platform, and is the canonacal tool for building Haskell code. This section explains using cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
+While ghci is useful for playing with Haskell code, it doesn't enable you to build libraries and programs. Cabal (Common Architecture for Building Applications and Libraries) is installed with the Haskell Platform, and is the canonical tool for building Haskell code. This section explains using Cabal, but where it lacks, you can get more info at: http://www.haskell.org/cabal/.
 
 #### Getting Started with Cabal
 
@@ -155,7 +155,7 @@ A few helpful commands for getting started with Cabal:
   * Given zero arguments, it will install your package.
   * Given any number of library arguments (like `cabal install github` which was used above), it will download those libraries from hackage, build, and install them.
 
-This project is a working Cabal project, and this document explains the cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
+This project is a working Cabal project, and this document explains the Cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
 
 #### Cabal file header
 
@@ -221,7 +221,7 @@ We will document this code shortly too, but do notice that it imports `Github.Re
 
 ### Configuring the library in Cabal
 
-A cabal file can only have one library (but you're not required to have one). Here's the configuration for it:
+A Cabal file can only have one library (but you're not required to have one). Here's the configuration for it:
 
     library 
       hs-source-dirs: src
@@ -356,7 +356,7 @@ Configuring an exectuable in Cabal is very simple:
       main-is: Main.hs
       build-depends: base < 5, haskell-starter
 
-* `executable githubCommitPrinter` starts the executable block, and names it. You may have many different executables in one cabal file.
+* `executable githubCommitPrinter` starts the executable block, and names it. You may have many different executables in one Cabal file.
 * `hs-source-dirs` is a list of directories to find source files.
 * `main-is` specifies the Haskell file that contains the `main` function. `main` must have type `IO ()`.
 * `build-depends` is the same as it is in the library definition. Notice here that githubCommitPrinter depends on the haskell-starter library. Cabal doesn't implicitely add your library to executables.
@@ -408,7 +408,7 @@ We will see how to run these tests shortly.
 
 ### QuickCheck
 
-[QuickCheck](#http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2) is a library for writing properties for your functions, and a framework for testing those properties with random inputs. Here is a simple example property that for all lists of integers, tests that the reverse or the reverse of that list is the equal to that list.
+[QuickCheck](#http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2) is a library for writing properties for your functions, and a framework for testing those properties with random inputs. Here is a simple example property that for all lists of integers, tests that the reverse of the reverse of that list is the equal to that list.
 
 ```Haskell
 prop_list_reverse_reverse :: [Int] -> Bool
@@ -505,7 +505,7 @@ extract :: Show a => Either a c -> c
 extract = either (error . show) id
 ```
 
-In case it's hard to notice, I've addded:
+In case it's hard to notice, I've added:
 
 ```
   >>> extract $ Right 10
@@ -543,7 +543,7 @@ All `test-suite` configurations get ran when you execute `cabal test`, so this t
 
 ## Travis
 
-Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
+Travis (travis-ci.org) is a service for building your project automatically after a git push. It notifies you via email if the build fails. This project is already set up to use Travis. Specifically, `.travis.yml` and the `travis` directory. I don't have time to provide details on the contents of these files right now, but hope to soon.
 
 ## Further Reading
 
