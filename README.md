@@ -4,9 +4,9 @@ This project demonstrates how to set up your own real Haskell project, and helps
 
 * [Getting started with this project](#getting-started-with-this-project)
 * [Prerequisites](#prerequisites)
-  * [ghci — Haskell interpreter](#ghci)
-  * [Hoogle — Finding functions, libraries and documentation](#hoogle)
-* [Cabal — The Haskell build tool](#cabal)
+  * [ghci – Haskell interpreter](#ghci)
+  * [Hoogle – Finding functions, libraries and documentation](#hoogle)
+* [Cabal – The Haskell build tool](#cabal)
   * [Getting Started with Cabal](#getting-started-with-cabal)
   * [Cabal file header](#cabal-file-header)
 * [Libraries](#creating-a-library)
@@ -14,7 +14,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Configuration](#configuring-the-library-in-cabal)
   * [Using the Library with ghci](#using-the-library-with-ghci)
   * [Building and Installing your Library](#building-and-installing-your-library)
-* [Haddock — Haskell documentation](#haddock)
+* [Haddock – Haskell documentation](#haddock)
 * [Dependencies](#understanding-dependencies)
 * [Executables](#executables)
   * [Configuring an executable](#configuring-an-executable-in-cabal)
@@ -26,8 +26,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
   * [Running Tests](#running-tests)
   * [doctests](#doctest)
-  * Hackage — Publishing your library
-* [Travis — Building your project on git each commit](#travis)
+  * Hackage – Publishing your library
+* [Travis – Building your project on git each commit](#travis)
 * [Further Reading](#further-reading)
 
 ## Getting started with this project
@@ -396,10 +396,10 @@ $ githubCommitPrinter joshcough HaskellStarter
 
 In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
 
-* HUnit — a library for writing unit tests
-* QuickCheck — a library for writing properties 
-* test-framework — a framework for organizing and running unit tests and properties
-* doctest — inject tests directly into your documentation
+* HUnit – a library for writing unit tests
+* QuickCheck – a library for writing properties 
+* test-framework – a framework for organizing and running unit tests and properties
+* doctest – inject tests directly into your documentation
 
 ### HUnit
 
