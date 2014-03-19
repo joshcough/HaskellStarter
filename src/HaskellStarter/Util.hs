@@ -5,14 +5,19 @@
 module HaskellStarter.Util (extract, printAll) where
 
 {-|
-   Forcefully pull a value out of an Either.
+   Forcefully pull a value out of an 'Either'.
+
    This function: 
-     * Returns the result if the Either is a Right.
-     * Dies with an error if the Either is a Left.
-  >>> extract $ Right 10
-  10
-  >>> extract $ Right "hello, world"
-  "hello, world"
+
+   * Returns the result if the 'Either' is a 'Right'.
+
+   * Dies with an error if the 'Either' is a 'Left'.
+
+   >>> extract $ Right 10
+   10
+
+   >>> extract $ Right "hello, world"
+   "hello, world"
  -}
 extract :: Show a => Either a c -> c
 extract = either (error . show) id
