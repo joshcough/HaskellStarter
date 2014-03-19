@@ -1,8 +1,5 @@
 language: haskell
- 
  before_install:
-   # The constraint is being used because one of our dependencies wants to force TH to upgrade. Bad, dependency! bad!
-   - travis/cabal-apt-install --enable-tests --force --constraint 'template-haskell installed'
- 
+   - travis/cabal-apt-install --enable-tests --force
  script:
-   - cabal install --enable-tests --constraint 'template-haskell installed'
+   - cabal install --enable-tests
