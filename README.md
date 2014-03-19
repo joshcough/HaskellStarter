@@ -113,7 +113,7 @@ x + x :: Int
 Load files with :load
 
     prelude> :load Goop
-    *Goop> TODO: run an expression in goop
+    *Goop> --now run some expressions in Goop
 
 Quit ghci
 
