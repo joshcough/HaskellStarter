@@ -4,9 +4,9 @@ This project demonstrates how to set up your own real Haskell project, and helps
 
 * [Getting started with this project](#getting-started-with-this-project)
 * [Prerequisites](#prerequisites)
-  * [ghci - Haskell interpreter](#ghci)
-  * [Hoogle - Finding functions, libraries and documentation](#hoogle)
-* [Cabal - The Haskell build tool](#cabal)
+  * [ghci – Haskell interpreter](#ghci)
+  * [Hoogle – Finding functions, libraries and documentation](#hoogle)
+* [Cabal – The Haskell build tool](#cabal)
   * [Getting Started with Cabal](#getting-started-with-cabal)
   * [Cabal file header](#cabal-file-header)
 * [Libraries](#creating-a-library)
@@ -14,7 +14,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Configuration](#configuring-the-library-in-cabal)
   * [Using the Library with ghci](#using-the-library-with-ghci)
   * [Building and Installing your Library](#building-and-installing-your-library)
-* [Haddock - Haskell documentation](#haddock)
+* [Haddock – Haskell documentation](#haddock)
 * [Dependencies](#understanding-dependencies)
 * [Executables](#executables)
   * [Configuring an executable](#configuring-an-executable-in-cabal)
@@ -26,8 +26,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
   * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
   * [Running Tests](#running-tests)
   * [doctests](#doctest)
-  * Hackage - Publishing your library
-* [Travis - Building your project on git each commit](#travis)
+  * Hackage – Publishing your library
+* [Travis – Building your project on git each commit](#travis)
 * [Further Reading](#further-reading)
 
 ## Getting started with this project
@@ -60,14 +60,14 @@ $ tree -a -I .git
 │   └── UnitTests.hs
 └── travis
     ├── cabal-apt-install
-        └── config
+    └── config
 
 5 directories, 15 files
 ```
 
 Some valuable commands to play with (all of which will be explained) are:
 
-```
+```sh
 $ cabal --help
 $ cabal update
 $ cabal init
@@ -90,11 +90,13 @@ ghci is a simple way to get started playing with Haskell, and is essential for t
 
 Run ghci at the command line by simply typing ghci:
       
-    $ ghci
+```sh
+$ ghci
+```
 
 Input expressions
 
-``` 
+```haskell
 prelude> 5 + 5
 10
 prelude> let x = 10
@@ -103,7 +105,7 @@ prelude> x + x
 ```
 Get types with :t
 
-```
+```haskell
 prelude> :t x
 x :: Num a => a
 prelude> let x = 7 :: Int
@@ -113,13 +115,17 @@ x + x :: Int
 
 Load files with :load
 
-    prelude> :load Goop
-    *Goop> --now run some expressions in Goop
+```haskell
+prelude> :load Goop
+*Goop> --now run some expressions in Goop
+```
 
 Quit ghci
 
-    prelude> :q
-    prelude> ^d
+```haskell
+prelude> :q
+prelude> ^d
+```
 
 ### Hoogle
 
@@ -135,9 +141,11 @@ Maybe we want to write a library that does some fun stuff with the Github API (h
 
    https://lmddgtfy.net/?q=!hoogle%20github
 
-Yay, we've discovered a Github package - http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
+Yay, we've discovered a Github package — http://hackage.haskell.org/package/github, complete with everything listed above. Poke around and find out more. After you're done poking, you should install the package:
 
-    $ cabal install github
+```sh
+$ cabal install github
+```
 
 ### Cabal
 
@@ -156,6 +164,7 @@ A few helpful commands for getting started with Cabal:
 * `cabal install` installs a package.
   * Given zero arguments, it will install your package.
   * Given any number of library arguments (like `cabal install github` which was used above), it will download those libraries from hackage, build, and install them.
+  * Given `--only-dependencies`, it will install all your package's dependencies.  This is the recommended way to install new libraries to a project, as it will choose a version to install that is compatible with your other dependencies.
 
 This project is a working Cabal project, and this document explains the Cabal configuration, which is in `haskellstarter.cabal`. Let's get started by taking a quick peek at it, and we'll create a Haskell library.
 
@@ -185,7 +194,7 @@ Most of these fields are self explanatory, and are mostly for documentation, and
 
 ### Modules
 
-In order to have a library, we need some code. :) I usually put my code in a directory called `src`, but any directory name you want is fine. In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.CommitPrinter` which uses the github library previously mentioned to print commits for a repo. 
+In order to have a library, we need some code. :smile: I usually put my code in a directory called `src`, but any directory name you want is fine ([provided it is configured](#configuring-the-library-in-cabal)). In this project we have two modules, `HaskellStarter.Util`, which just contains some simple utility functions, and `HaskellStarter.CommitPrinter` which uses the github library previously mentioned to print commits for a repo. 
 
 Let's take a look at `HaskellStarter.Util`:
 
@@ -235,11 +244,11 @@ A Cabal file can only have one library (but you're not required to have one). He
         base >= 4 && < 5, github >= 0.7.4
 
 * `hs-source-dirs` is a list of directories to find your source files in, relative to the root directory of your project. Here, we only use one, but you can also say: `hs-source-dirs: src1 src2 goober/joober`
-* `exposed-modules` specifies the modules in the libraries public API.
+* `exposed-modules` specifies the modules in the library's public API.
 * `other-modules` specifies modules that aren't publicly exposed, but are still part of the library.
 * `build-depends` will be explained in the section [Understanding Dependencies](#understanding-dependencies), but for now, it is enough to know that this library depends on two other libraries: base, and github.
 
-A quick note about modules: Cabal must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`. I find this good and bad - on one hand it allows you to have Haskell files in your source directory that you don't want to be compiled, on the other, it forces you to list all of your modules.
+A quick note about modules: Cabal must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`. I find this good and bad — on one hand it allows you to have Haskell files in your source directory that you don't want to be compiled, on the other, it forces you to list all of your modules.
 
 ### Using the Library with ghci
 
@@ -257,11 +266,15 @@ Of course, this project has way too many bogus commits that just say "readme upd
 
 Building your library is easy:
 
-    $ cabal build
+```sh
+$ cabal build
+```
 
 If you want to build other projects that depend on your library, you can install it locally:
 
-    $ cabal install
+```sh
+$ cabal install
+```
 
 ## Haddock
 
@@ -355,11 +368,11 @@ main = do
   printCommitsFor (args !! 0) (args !! 1)
 ```
 
-This is a command line program that takes two arguments - a username and a project name, and prints the commits for that project.
+This is a command line program that takes two arguments — a username and a project name, and prints the commits for that project.
 
 ### Configuring an executable in Cabal
 
-Configuring an exectuable in Cabal is very simple:
+Configuring an executable in Cabal is very simple:
 
     executable githubCommitPrinter
       hs-source-dirs: executables
@@ -373,18 +386,20 @@ Configuring an exectuable in Cabal is very simple:
 
 ### Installing and Running Executables
 
-`cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to ~/.cabal/bin. By adding that to your PATH, you can run your executables immediately.
+`cabal install` installs all executables in your project, as well as the library (if there is one). By default, Cabal installs executables to `~/.cabal/bin`, or `%appdata\cabal\bin` on Windows. By adding that to your `PATH`, you can run your executables immediately.
 
-    $ githubCommitPrinter joshcough HaskellStarter
+```sh
+$ githubCommitPrinter joshcough HaskellStarter
+```
 
 ## Tests  
 
 In Haskell and Cabal there are a _lot_ of different test libraries and frameworks, and it's difficult to choose which to use. Here, I'll explain briefly:
 
-* HUnit - a library for writing unit tests
-* QuickCheck - a library for writing properties 
-* test-framework - a framework for organizing and running unit tests and properties
-* doctest - inject tests directly into your documentation
+* HUnit – a library for writing unit tests
+* QuickCheck – a library for writing properties 
+* test-framework – a framework for organizing and running unit tests and properties
+* doctest – inject tests directly into your documentation
 
 ### HUnit
 
@@ -412,7 +427,7 @@ tests = testGroup "HUnit tests" [
  ,testCase "another passing test!" $ 6 @?= 6 ]
 ```
 
-*This doesn't currently import anything in the library. The reason for this is a little subtle - `HaskellStarter.Utils` is the only module with easily testable functions, but it is not exposed, so we don't have access to it! There are a couple ways around this, but the easiest is to simply expose all modules that you wish to test.
+*This doesn't currently import anything in the library. The reason for this is a little subtle — `HaskellStarter.Utils` is the only module with easily testable functions, but it is not exposed, so we don't have access to it! There are a couple ways around this, but the easiest is to simply expose all modules that you wish to test.
 
 We will see how to run these tests shortly.
 
@@ -484,15 +499,21 @@ test-suite unit-tests-and-properties
 
 Don't worry too much about the details here. Just know that the tests are in the `test` directory, and `Main.hs` is in there. Hopefully soon I'll be able to provide more info here, and/or make the configuration slightly less verbose.
 
+You'll need to configure with `cabal configure --enable-tests` before tests can be run.  If that fails for lack of dependencies, `cabal install --enable-tests --only-dependencies` will install them.
+
 #### Running Tests
 
 Now that we have our test suite configured, running it is very easy:
 
-    $ cabal test
+```sh
+$ cabal test
+```
 
 You can also pass the `--enable-tests` flag to `cabal install`, which will run all of your tests, and only install the library if all of the tests pass:
         
-    $ cabal install --enable-tests 
+```sh
+$ cabal install --enable-tests 
+```
 
 #### doctest
 
@@ -517,7 +538,7 @@ extract = either (error . show) id
 
 In case it's hard to notice, I've added:
 
-```
+```haskell
   >>> extract $ Right 10
   10
   >>> extract $ Right "hello, world"
