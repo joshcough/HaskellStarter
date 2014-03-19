@@ -588,7 +588,7 @@ The version in this project is slightly more complicated in order to allow the T
 
 ## Publishing Your Library
 
-TODO
+TODO (But for now: http://hackage.haskell.org/upload)
 
 ## Further Reading
 
