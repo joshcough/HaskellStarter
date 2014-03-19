@@ -12,8 +12,8 @@ This project demonstrates how to set up your own real Haskell project, and helps
 * [Libraries](#creating-a-library)
   * [Modules](#creating-a-library)
   * [Configuration](#configuring-the-library-in-cabal)
-  * [Building and Installing your Library](#building-and-installing-your-library)
   * [Using the Library with ghci](#using-the-library-with-ghci)
+  * [Building and Installing your Library](#building-and-installing-your-library)
 * [Haddock - Haskell documentation](#haddock)
 * [Dependencies](#understanding-dependencies)
 * [Executables](#executables)
@@ -74,6 +74,7 @@ $ cabal init
 $ cabal install github
 $ cabal build
 $ cabal test
+$ cabal repl
 $ cabal install
 ```
 
@@ -151,6 +152,7 @@ A few helpful commands for getting started with Cabal:
 * `cabal init` runs you through a series of questions to start a new project.
 * `cabal build` builds your project locally (into the `dist` directory).
 * `cabal test` builds your project and then runs all of your tests.
+* `cabal repl` runs GHCI with your project already loaded.
 * `cabal install` installs a package.
   * Given zero arguments, it will install your package.
   * Given any number of library arguments (like `cabal install github` which was used above), it will download those libraries from hackage, build, and install them.
@@ -239,6 +241,18 @@ A Cabal file can only have one library (but you're not required to have one). He
 
 A quick note about modules: Cabal must know about all of your modules in the library, so they must be specified in `exposed-modules` or `other-modules`. I find this good and bad - on one hand it allows you to have Haskell files in your source directory that you don't want to be compiled, on the other, it forces you to list all of your modules.
 
+### Using the Library with ghci
+
+With some code in place and the library configured, it's time to play with it. Try this out:
+
+    $ cabal repl
+
+This will bring you into ghci with all of your modules preloaded. Let's call a function:
+
+    *HaskellStarter.CommitPrinter> printCommitsFor "joshcough" "HaskellStarter"
+
+Of course, this project has way too many bogus commits that just say "readme update" to actually show the output here, but it does work. Trust me.
+
 ### Building and Installing your Library
 
 Building your library is easy:
@@ -248,10 +262,6 @@ Building your library is easy:
 If you want to build other projects that depend on your library, you can install it locally:
 
     $ cabal install
-
-### Using the Library with ghci
-
-TODO
 
 ## Haddock
 
@@ -595,6 +605,7 @@ Cabal:
 
 Travis:
 * https://travis-ci.org/
+* https://travis-ci.org/profile
 
 Other:
 * http://www.haskell.org/haskellwiki/Package_versioning_policy
