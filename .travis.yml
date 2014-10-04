@@ -1,5 +1,7 @@
 language: haskell
+env:
+  - GHCVER=7.8.3
 before_install:
-  - travis/cabal-apt-install --enable-tests --force
+  - cabal install --only-dependencies --enable-tests --force-reinstall
 script:
   - cabal install --enable-tests
