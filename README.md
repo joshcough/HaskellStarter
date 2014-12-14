@@ -22,7 +22,7 @@ This project demonstrates how to set up your own real Haskell project, and helps
 * [Tests](#tests)
   * [Unit tests with HUnit](#hunit)
   * [Properties with QuickCheck](#quickcheck)
-  * [test-framework](#test-framework)
+  * [Tasty](#Tasty)
   * [Configuring a test suite](#configuring-a-test-suite-in-cabal)
   * [Running Tests](#running-tests)
   * [doctests](#doctest)
@@ -398,7 +398,7 @@ In Haskell and Cabal there are a _lot_ of different test libraries and framework
 
 * HUnit – a library for writing unit tests
 * QuickCheck – a library for writing properties 
-* test-framework – a framework for organizing and running unit tests and properties
+* Tasty – a framework for organizing and running unit tests and properties
 * doctest – inject tests directly into your documentation
 
 ### HUnit
@@ -418,9 +418,8 @@ I've written a very simple example in `test/UnitTests.hs`* that I think is very 
 ```Haskell
 module UnitTests where
 
-import Test.Framework.Providers.API
-import Test.Framework.Providers.HUnit
-import Test.HUnit
+import Test.Tasty
+import Test.Tasty.HUnit
 
 tests = testGroup "HUnit tests" [
   testCase "a passing test!"       $ 5 @?= 5
@@ -446,8 +445,8 @@ This property is put into a module in `tests/Properties.hs`:
 {-# LANGUAGE TemplateHaskell #-}
 module Properties where
 
-import Test.Framework.Providers.QuickCheck2
-import Test.Framework.TH
+import Test.Tasty.QuickCheck
+import Test.Tasty.TH
 import Test.QuickCheck
 
 prop_list_reverse_reverse :: [Int] -> Bool
@@ -461,21 +460,19 @@ tests = $testGroupGenerator
 
 This module has a couple of very simple properties in it (once again, unrelated to the code in the library). We will see how to run these shortly, as well.
 
-### test-framework
+### Tasty
 
-Before we can run our tests, we need to package them up into a module with a main function. We do that using [test-framework](http://hackage.haskell.org/package/test-framework). Here are the contents of `test/Main.hs`:
+Before we can run our tests, we need to package them up into a module with a main function. We do that using [Tasty](http://hackage.haskell.org/package/tasty). Here are the contents of `test/Main.hs`:
 
 ```Haskell
-module Main where
-
 import Properties
 import UnitTests
-import Test.Framework.Runners.Console (defaultMain)
+import Test.Tasty(defaultMain, testGroup)
 
-main = defaultMain $ [UnitTests.tests, Properties.tests]
+main = defaultMain $ testGroup "All tests" [UnitTests.tests, Properties.tests]
 ```
 
-This module provides a main function using the defaultMain function from test-framework. It takes a list of test groups as an argument, and runs all the tests in those groups. It also takes care of printing fancy messages for successes and failures.
+This module provides a `main` function using the `defaultMain` function from Tasty. It takes a `TestTree` as an argument (constructed using the `testGroup` function to combine the other test modules' `TestTree`s into one), and then it runs all the tests in that combined `TestTree`. It also takes care of printing fancy messages for successes and failures.
 
 ### Configuring a test suite in Cabal
 
@@ -491,10 +488,10 @@ test-suite unit-tests-and-properties
     base,
     HUnit,
     QuickCheck                 >= 2.4,
-    test-framework             >= 0.6,
-    test-framework-hunit,
-    test-framework-quickcheck2 >= 0.2,
-    test-framework-th          >= 0.2
+    tasty                      >= 0.10 && < 0.11,
+    tasty-hunit                >= 0.9 && < 0.10,
+    tasty-quickcheck           >= 0.8 && < 0.9,
+    tasty-th                   >= 0.1 && < 0.2
 ```
 
 Don't worry too much about the details here. Just know that the tests are in the `test` directory, and `Main.hs` is in there. Hopefully soon I'll be able to provide more info here, and/or make the configuration slightly less verbose.
@@ -616,7 +613,7 @@ Testing:
 * http://hunit.sourceforge.net/
 * http://hunit.sourceforge.net/HUnit-1.0/Guide.html
 * http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2
-* http://hackage.haskell.org/package/test-framework
+* http://hackage.haskell.org/package/tasty
 * https://github.com/sol/doctest-haskell
 
 Books:
