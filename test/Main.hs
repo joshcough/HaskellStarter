@@ -2,6 +2,6 @@ module Main where
 
 import Properties
 import UnitTests
-import Test.Framework.Runners.Console (defaultMain)
+import Test.Tasty(defaultMain, testGroup)
 
-main = defaultMain $ [UnitTests.tests, Properties.tests]
+main = defaultMain $ testGroup "All tests" [UnitTests.tests, Properties.tests]

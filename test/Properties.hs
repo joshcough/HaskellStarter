@@ -1,8 +1,8 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Properties where
 
-import Test.Framework.Providers.QuickCheck2
-import Test.Framework.TH
+import Test.Tasty.QuickCheck
+import Test.Tasty.TH
 import Test.QuickCheck
 
 prop_list_reverse_reverse :: [Int] -> Bool
